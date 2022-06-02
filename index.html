@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        textarea{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            min-height: 600px;
+            padding:1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>.txt</h1>
+    <textarea></textarea>
+    <script>
+        const ta = document.querySelector("textarea")
+        if(window.location.hash){
+            const data = window.location.hash.slice(1)
+            ta.value = atob(data)
+        }
+        ta.addEventListener("keyup", (e) => {
+            console.log(btoa(ta.value))
+            window.location.hash = "#" + btoa(ta.value)
+        })
+    </script>
+</body>
+</html>
