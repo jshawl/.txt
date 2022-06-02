@@ -1,36 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>.txt</title>
     <style>
-        body {
-            font-family: sans-serif;
-        }
-        textarea{
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            min-height: 600px;
-            padding:1em;
-        }
+      body {
+        font-family: sans-serif;
+        padding: 0 2em;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em 0;
+      }
+      textarea {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        min-height: 600px;
+        padding: 1em;
+        white-space: pre-wrap;
+      }
+      a {
+        display: inline-block;
+      }
+      h1 {
+        font-size: 1rem;
+        margin: 0;
+      }
     </style>
-</head>
-<body>
-    <h1>.txt</h1>
+  </head>
+  <body>
+    <header>
+      <h1>.txt</h1>
+      <a class="download">⬇️ Download</a>
+    </header>
     <textarea></textarea>
     <script>
-        const ta = document.querySelector("textarea")
-        if(window.location.hash){
-            const data = window.location.hash.slice(1)
-            ta.value = atob(data)
-        }
-        ta.addEventListener("keyup", (e) => {
-            console.log(btoa(ta.value))
-            window.location.hash = "#" + btoa(ta.value)
-        })
+      const ta = document.querySelector("textarea");
+      const dl = document.querySelector(".download");
+      const yyyymmdd = new Date().toISOString().split("T")[0];
+      document.title = yyyymmdd + ".txt";
+      const updateDl = () => {
+        dl.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(ta.value)
+        );
+        dl.setAttribute("download", yyyymmdd + ".txt");
+      };
+      if (window.location.hash) {
+        const data = window.location.hash.slice(1);
+        ta.value = atob(data);
+        updateDl();
+      }
+      ta.addEventListener("keyup", (e) => {
+        window.location.hash = "#" + btoa(ta.value);
+        updateDl();
+      });
     </script>
-</body>
+  </body>
 </html>
